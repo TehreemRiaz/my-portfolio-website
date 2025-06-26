@@ -1,0 +1,150 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { ExternalLink, Github, Database, BarChart3, Brain, TrendingUp } from 'lucide-react';
+
+const Projects = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const projects = [
+    {
+      title: 'Real-time Data Pipeline',
+      description: 'Built a scalable real-time data pipeline using Apache Kafka and Spark Streaming to process millions of events per day, reducing data latency by 80%.',
+      tech: ['Apache Kafka', 'Spark Streaming', 'Python', 'AWS'],
+      icon: Database,
+      gradient: 'from-blue-500 to-cyan-500',
+      image: 'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=800',
+    },
+    {
+      title: 'Customer Analytics Dashboard',
+      description: 'Developed an interactive dashboard for customer behavior analysis using Tableau and Python, helping increase customer retention by 25%.',
+      tech: ['Tableau', 'Python', 'SQL', 'Pandas'],
+      icon: BarChart3,
+      gradient: 'from-purple-500 to-pink-500',
+      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
+    },
+    {
+      title: 'ML Fraud Detection System',
+      description: 'Implemented a machine learning model for fraud detection with 95% accuracy using ensemble methods and feature engineering techniques.',
+      tech: ['Scikit-learn', 'XGBoost', 'Python', 'Docker'],
+      icon: Brain,
+      gradient: 'from-green-500 to-teal-500',
+      image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
+    },
+    {
+      title: 'Sales Forecasting Model',
+      description: 'Created a time series forecasting model using LSTM networks to predict sales trends, improving forecast accuracy by 30%.',
+      tech: ['TensorFlow', 'LSTM', 'Python', 'Time Series'],
+      icon: TrendingUp,
+      gradient: 'from-orange-500 to-red-500',
+      image: 'https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&w=800',
+    },
+  ];
+
+  return (
+    <section id="projects" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <div className="container mx-auto px-6">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Featured <span className="gradient-text">Projects</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto mb-6"></div>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Showcasing my expertise in data engineering, machine learning, and analytics
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              className="group relative overflow-hidden rounded-2xl glass-effect hover:scale-105 transition-all duration-300"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20`}></div>
+              </div>
+
+              <div className="relative z-10 p-8">
+                <div className="flex items-center mb-4">
+                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center mr-4`}>
+                    <project.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                </div>
+
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm border border-gray-700"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex space-x-4">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-white transition-colors duration-300"
+                  >
+                    <Github size={16} />
+                    <span>Code</span>
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center space-x-2 bg-gradient-to-r ${project.gradient} px-4 py-2 rounded-lg text-white transition-all duration-300`}
+                  >
+                    <ExternalLink size={16} />
+                    <span>Demo</span>
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-center mt-12"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-full text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+          >
+            View All Projects
+          </motion.button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;
