@@ -101,9 +101,9 @@ const Hero = () => {
           className="flex items-center justify-center space-x-6"
         >
           {[
-            { icon: Github, href: '#', label: 'GitHub' },
-            { icon: Linkedin, href: '#', label: 'LinkedIn' },
-            { icon: Mail, href: '#', label: 'Email' },
+            { icon: Github, href: 'https://github.com/TehreemRiaz', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/tehreemriaz/', label: 'LinkedIn' },
+            { icon: Mail, href: 'mailto:tehreemriaz87@gmail.com', label: 'Email' },
           ].map(({ icon: Icon, href, label }) => (
             <motion.a
               key={label}

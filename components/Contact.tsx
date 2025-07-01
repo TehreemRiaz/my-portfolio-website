@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Library } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 
 const Contact = () => {
@@ -58,9 +58,9 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/TehreemRiaz', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/tehreemriaz/', label: 'LinkedIn' },
+    { icon: Library, href: 'https://www.kaggle.com/tehreemriaz', label: 'Kaggle' },
   ];
 
   return (
