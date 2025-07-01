@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -14,6 +15,9 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  
+  // Initialize Formspree hook with your form ID
+  const [state, handleFormspreeSubmit] = useForm("mvgrllpk");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -24,8 +28,12 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    handleFormspreeSubmit({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message
+    });
   };
 
   const contactInfo = [
@@ -136,7 +144,23 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="glass-effect rounded-2xl p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {state.succeeded ? (
+              <div className="text-center py-12">
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="mb-6 text-green-400 flex justify-center"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </motion.div>
+                <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
+                <p className="text-gray-300">Your message has been sent successfully. I&apos;ll get back to you soon!</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-300 text-sm font-medium mb-2">
@@ -204,14 +228,24 @@ const Contact = () => {
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-lg text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-2"
+                disabled={state.submitting}
+                whileHover={{ scale: state.submitting ? 1 : 1.02 }}
+                whileTap={{ scale: state.submitting ? 1 : 0.98 }}
+                className={`w-full bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-lg text-white font-semibold text-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-2 ${state.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 <Send size={20} />
-                <span>Send Message</span>
+                <span>{state.submitting ? 'Sending...' : 'Send Message'}</span>
               </motion.button>
+              
+              {/* Formspree validation errors */}
+              <div className="text-red-400 text-sm">
+                <ValidationError errors={state.errors} field="name" prefix="Name" />
+                <ValidationError errors={state.errors} field="email" prefix="Email" />
+                <ValidationError errors={state.errors} field="subject" prefix="Subject" />
+                <ValidationError errors={state.errors} field="message" prefix="Message" />
+              </div>
             </form>
+            )}
           </motion.div>
         </div>
       </div>
