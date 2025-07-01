@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { ExternalLink, Github, Database, BarChart3, Brain, TrendingUp } from 'lucide-react';
+import { ExternalLink, Github, Database, BarChart3, Brain, TrendingUp, Link } from 'lucide-react';
 
 const Projects = () => {
   const ref = useRef(null);
@@ -11,28 +11,29 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'Real-time Data Pipeline',
-      description: 'Built a scalable real-time data pipeline using Apache Kafka and Spark Streaming to process millions of events per day, reducing data latency by 80%.',
-      tech: ['Apache Kafka', 'Spark Streaming', 'Python', 'AWS'],
+      title: 'Real-Time Log Analytics Pipeline ',
+      description: 'Ingested Apache logs using Cloud Storage. Used Apache Beam via DataFlow for processing (parsing logs, filtering errors). Stored processed data in BigQuery for analytics dashboards. Used Cloud Run functions to trigger pipeline on logs ingestion. Used Terraform to provision all infrastructure. ',
+      tech: ['Apache Beam', 'Terraform', 'Cloud Run', 'BigQuery', 'Cloud Storage', 'DataFlow', 'Python'],
       icon: Database,
       gradient: 'from-blue-500 to-cyan-500',
       image: 'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=800',
+      codeUrl: 'https://github.com/your-repo/real-time-log-analytics',
     },
     {
-      title: 'Customer Analytics Dashboard',
-      description: 'Developed an interactive dashboard for customer behavior analysis using Tableau and Python, helping increase customer retention by 25%.',
-      tech: ['Tableau', 'Python', 'SQL', 'Pandas'],
-      icon: BarChart3,
-      gradient: 'from-purple-500 to-pink-500',
-      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
-    },
-    {
-      title: 'ML Fraud Detection System',
-      description: 'Implemented a machine learning model for fraud detection with 95% accuracy using ensemble methods and feature engineering techniques.',
-      tech: ['Scikit-learn', 'XGBoost', 'Python', 'Docker'],
+      title: 'Big Data Processing System with Hybrid Storage Architecture',
+      description: 'Used Kafka for stream processing. For storage, used S3, MongoDB and Cassandra for different data types, Elastic Search for Full-text search capabilities Prometheus and Grafana for metrics collection and visualization ',
+      tech: ['Kafka', 'S3', 'MongoDB', 'Cassandra', 'Elastic Search', 'Prometheus', 'Grafana', 'Python'],
       icon: Brain,
       gradient: 'from-green-500 to-teal-500',
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
+    },
+    {
+      title: 'Global Covid-19 Impact Dashboard',
+      description: 'Ingested global COVID-19 data into BigQuery, performed analytics, and visualized key insights through an interactive Looker Studio dashboard showcasing cases, deaths, and vaccination trends.',
+      tech: ['Looker Studio', 'BigQuery', 'SQL'],
+      icon: BarChart3,
+      gradient: 'from-purple-500 to-pink-500',
+      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
     },
     {
       title: 'Sales Forecasting Model',
@@ -112,7 +113,7 @@ const Projects = () => {
                     className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-white transition-colors duration-300"
                   >
                     <Github size={16} />
-                    <span>Code</span>
+                    <Link href={project.codeUrl} target="_blank"><span>Code</span></Link>
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
